@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "TITIAN KERJA"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4588a747-9109-594a-87b0-2fcb8f0bccc2"
+  }
+}

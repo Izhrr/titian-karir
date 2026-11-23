@@ -1,0 +1,11 @@
+relationship 5f9084b0-cd5d-52ac-910f-0fe59255dcf3
+	fromColumn: KabGender.kab_code
+	toColumn: DimKab.kab_code
+
+relationship b358b976-c01e-5d6d-a812-c72ff9d95152
+	fromColumn: KabProfil.kab_code
+	toColumn: DimKab.kab_code
+
+relationship 60989c97-50fb-5d36-9fa9-389468b554f6
+	fromColumn: TrenMenengah.kab_code
+	toColumn: DimKab.kab_code

@@ -1,0 +1,85 @@
+table KabGender
+	lineageTag: 394191bd-f0c4-5bfd-84fc-974c30c1d753
+
+	measure 'TPT Terpilih' = DIVIDE ( SUM ( KabGender[penganggur] ), SUM ( KabGender[ak] ) ) * 100
+		formatString: 0.0
+		lineageTag: c9a318c1-c08e-5f12-ae6e-e0010b1b1e4d
+
+	measure 'TPT SMK Pilihan' = FORMAT ( DIVIDE ( CALCULATE ( SUM ( KabGender[penganggur] ), KabGender[jenjang] = "SMK" ), CALCULATE ( SUM ( KabGender[ak] ), KabGender[jenjang] = "SMK" ) ) * 100, "0.00", "id-ID" )
+		lineageTag: 1f2e2e98-58a4-5d5c-a314-cdd72eaf5a6d
+
+	measure 'TPT SMK Pilihan Sub' =
+			VAR j = DIVIDE ( CALCULATE ( SUM ( KabGender[penganggur] ), KabGender[jenjang] = "SMK", ALL ( DimKab ) ), CALCULATE ( SUM ( KabGender[ak] ), KabGender[jenjang] = "SMK", ALL ( DimKab ) ) ) * 100
+			RETURN "Jawa Tengah " & FORMAT ( j, "0.00", "id-ID" ) & "%, nasional 8,63%"
+		lineageTag: b0898dbf-4540-5263-b1fe-20735b4af1a2
+
+	measure 'Penganggur SMK Pilihan' = FORMAT ( CALCULATE ( SUM ( KabGender[penganggur] ), KabGender[jenjang] = "SMK" ), "#,0", "id-ID" )
+		lineageTag: e917d617-8d50-500b-8f04-d17b75aaddf5
+
+	measure 'Penganggur SMK Pilihan Sub' =
+			VAR a = CALCULATE ( SUM ( KabGender[penganggur] ), KabGender[jenjang] = "SMK" )
+			VAR t = CALCULATE ( SUM ( KabGender[penganggur] ), KabGender[jenjang] = "SMK", ALL ( DimKab ) )
+			RETURN FORMAT ( DIVIDE ( a, t ), "0.0%", "id-ID" ) & " penganggur SMK Jawa Tengah"
+		lineageTag: b8bdf39a-1f1d-5e7b-8e2a-d61878272039
+
+	measure 'Warna Tipologi' = SWITCH ( SELECTEDVALUE ( DimKab[tipologi] ), "Lulusan Sulit Kerja", "#E03131", "Sentra Industri", "#1F6FEB", "Basis Pertanian", "#D9822B", "Perkotaan Terdidik", "#0CA678", "#CBD4E1" )
+		lineageTag: 63a97999-ae35-5d92-bebe-a413e5145cf3
+
+	measure 'Insight Ranking' =
+			VAR t = ADDCOLUMNS ( VALUES ( DimKab[kab] ), "v", [TPT Terpilih] )
+			VAR top = TOPN ( 1, t, [v], DESC )
+			VAR p = CALCULATE ( [TPT Terpilih], ALL ( DimKab ) )
+			VAR n = COUNTROWS ( FILTER ( t, [v] > p ) )
+			RETURN "Insight: " & MAXX ( top, DimKab[kab] ) & " tertinggi, " & FORMAT ( DIVIDE ( MAXX ( top, [v] ), p ), "0.0", "id-ID" ) & "× rata-rata Jawa Tengah; " & n & " dari " & COUNTROWS ( t ) & " kab/kota di atas rata-rata."
+		lineageTag: 0f5465e3-01ef-5720-ada6-edc294eaa5d4
+
+	column kab_code
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: kab_code
+		lineageTag: 065bbe93-e9f2-576f-a6d8-941209d162a0
+
+		annotation SummarizationSetBy = User
+
+	column jenjang
+		dataType: string
+		summarizeBy: none
+		sourceColumn: jenjang
+		lineageTag: c3ede65f-f826-5470-9eab-fc13a5ac0276
+
+		annotation SummarizationSetBy = User
+
+	column jk
+		dataType: string
+		summarizeBy: none
+		sourceColumn: jk
+		lineageTag: 8aa3b4aa-325a-5791-aab9-23b223c96897
+
+		annotation SummarizationSetBy = User
+
+	column ak
+		dataType: double
+		summarizeBy: none
+		sourceColumn: ak
+		lineageTag: 4e2bebff-dd99-51fe-9db5-1cdb7890a64e
+
+		annotation SummarizationSetBy = User
+
+	column penganggur
+		dataType: double
+		summarizeBy: none
+		sourceColumn: penganggur
+		lineageTag: 60384d94-283f-515a-90cd-d9649c6d404e
+
+		annotation SummarizationSetBy = User
+
+	partition KabGender = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("hZk9b9w3DMa/SpA5LcQXidTYuS1QoGOQIUOGok1RBPD3L+0TZfJ/R91inwE/kEQ+4o/Uff78kajBx08fPv75+6+vv377+vdfP/1jP17/AMEh+nN7+0xdp3388unDmwhLEakKLpG0KUFElagrIC1Nw45Bw5WGpiDcNL03CpJe7g0Bua91dEwNolGJhKcuzcDZg0QqCZpCbhJUiVvTSqKj85LA5Bi0WUkmNOK1CvN4l0ArA8C2n7GCNiDEGUoXTJI5l0RjOqH0wERsaxUhDiGD0gGCjZbVuCkHSWkAZehtRzmYE0oDDNvBChn1Fo8/aomMtTGaPZ6lTD+hNs9lh5iYMv2dkdYFGD06Bsr0czcHr+NPDlbGMv3m5LaszOmWYZl9GqhrlddcBAnWF2a0FWRhCsfHMvvUcReaIVHCtWEmNd8YBVtimX3i0T1iMuMqZfYtfW0VGSaNESuzrwhj+FlIgmOwTL8VPeXplhGGIKrvPxO7mQF7MI3UJR1wuM9a8IxgbTOkHTRpQVJmE0bH4RUzhFm4VgB7nG2LGAItdTVX7uzQoCgp04lAc/ssnj9B8I9vP759/+/l679vDmja984UoWBg0gwAcQ326OeEwKSh/u40K1MFAZMEe2srmUaWXhAw72wMXKXJ8NEK/uWN6cRVNIhjZhL/kgREwJHBFf6Sgs3zK5cskUsJf1nCuFEGUNAvKewcgL4toAJ++fCDnGTmHSrgl/cFE5s3TSgF/PIqK+M3krUCfpeNDW8xRlL0epH3DkMHFOzLBhtWl9zHKgX7cozb9JPEogxl5q0q0m79QAvy5W3NnfkZ7z22+iAMY+ekFeDLHrawehqnVODLpUJ2u0wjtgpYZh4F/AojRd9jnXkAtyRJgwJ810KxexjhCnyXGN9O8PqxRRdjmXorDvt6WTtbcC+Xo46eF0ltD5bJtyvs7ThwhwJ6l6I3/Q7HeEmZSHrtR5zGqgXzsl1WR/FWyblgXlIo3pj9+lF0FMTLi1jJXp4UbQXwLorpPcKccM+7Xz68fH/5ft/D9Ca7h9H2YPArhDaJeYeJM81XdNRZcdRNWer39Ct0/N4DWIF6gMBqvbG7xwcQrBYzrHsr1GI5dBJWOtqTKnAaiPUcTFD14jBS5zHP68nuCxTknoyFTMxHS2YwfjAbVrFU3kP1bVa6MLLSdRW/Zbd+6QLKSmdXfTckiclPvALiwx8gPGBmFRebGnw90AdDY7VeH7sRgNgHwzO7EPnl4/YAooUO7L998sA8dp/9YqOU+iXqsfXEs2G04YY9j3lP1Xqj0zMoFFsRPDuGefpgYRmc94AtdGjTtWfiNgFfKFtdQAT2aUkezZiVQ6X5kwnMeAPx7Bhice7k6onypOoO3ydrf0DeKp6GdvC+IBH7bJjZ2KkyRmyn5Jx4Maf5vDLvQVxFZU6nnvVIdE/jymbW9vhyMZhyTjo0UfCx6vaScQFzJZysuh+X7ulcybjv1yKNZeme0bkRMpSssAxO75J41LGO4aMWx+PdIzo3RY13G9XjyHGP6EsztcPSSfCE6Kyb3V+emNMMPZ7sc7g5AeBI6dzxtrHfBhT6idI5D9g6uj2RTpS+nG/int5lnDCd82cLLr/0ePfgbBcmBp/8o1vgiVsAcTNF9ATpy5SC+wmEY9cNT9xiNYk2GuYJ0hdXy57wJhwhfZlzusPWhko+QfriamnqDwOTTpC+zMfkt8EuopwYnWcYu9aOsD6OjL4++HjTwzO6E892Een+6qNMR0RfXotoujuB+wnReVDRjVrrBfmE6Jx3G+68SgDyCdE579YgORwUj4i++Ho/VFH8mgKf2MUa8XW8OY6Avtw+1T26pobg7BZrVt5ba6szJ0LnYtY9mhiTIPjkEpGPi8h8JHQegdm92eUI6Hw43S+yKNhPfM4WM57sfjx+LyHnlFvv7t8z8e2buS//Aw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [kab_code = _t, jenjang = _t, jk = _t, ak = _t, penganggur = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"kab_code", Int64.Type}, {"jenjang", type text}, {"jk", type text}, {"ak", type number}, {"penganggur", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

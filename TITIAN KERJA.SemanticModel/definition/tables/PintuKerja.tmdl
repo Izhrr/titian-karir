@@ -1,0 +1,61 @@
+table PintuKerja
+	lineageTag: 1d455d6c-59bf-5129-90c8-dfb6cb2bdb52
+
+	measure 'Belum Pernah' = SUM ( PintuKerja[belum_pernah] )
+		formatString: #,0
+		lineageTag: 2d8ecf22-53c6-5684-84f7-c86afca23e94
+
+	measure 'Pernah Bekerja' = SUM ( PintuKerja[pernah] )
+		formatString: #,0
+		lineageTag: e4e83f4e-7dcf-5521-8060-13ddb767db07
+
+	column umur
+		dataType: string
+		summarizeBy: none
+		sourceColumn: umur
+		lineageTag: 98967f12-a8c8-56f7-8ba1-1f8f2c5bf2e7
+
+		annotation SummarizationSetBy = User
+
+	column penganggur
+		dataType: double
+		summarizeBy: none
+		sourceColumn: penganggur
+		lineageTag: 0f2b5731-e9ce-52e6-a207-73a966c1a2c4
+
+		annotation SummarizationSetBy = User
+
+	column belum_pernah
+		dataType: double
+		summarizeBy: none
+		sourceColumn: belum_pernah
+		lineageTag: 508a35a2-60fc-5fd8-9c14-c1bee8128285
+
+		annotation SummarizationSetBy = User
+
+	column porsi_belum_pernah
+		dataType: double
+		summarizeBy: none
+		sourceColumn: porsi_belum_pernah
+		lineageTag: a4afae80-69ee-5005-bf30-09d7d0df36c1
+
+		annotation SummarizationSetBy = User
+
+	column pernah
+		dataType: double
+		summarizeBy: none
+		sourceColumn: pernah
+		lineageTag: d05f9b2b-9e13-584d-8d3c-2359b2f2c49e
+
+		annotation SummarizationSetBy = User
+
+	partition PintuKerja = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("XZBBrsMwCESvUmX764gBxoazRL3/NeoGO4u/MkY8HprrOsCGPN6vWYiS/ZT7YwqMUZ8YZ00EbOTsfd6v61Bp6r+2mkOADfawZH0YJ39vDu3oD8imtQ/hElGzHk7LVUsJeyb9EZo0u4VdBvrCQBXVqnVpnYQ/OmOze5vP23IZAHWsFTpO/b0m0MDGXJrfNpvBiNfoMAtZlJ12v46u/lBsfstMJXQJOpg7niyXMtXGpiiNFSURskPgwHLNS4uSLvnkQTZmtc1jRy5h/+KYEXXaprr81X0ILtOAbtOMEsVKr+Q/Xw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [umur = _t, penganggur = _t, belum_pernah = _t, porsi_belum_pernah = _t, pernah = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"umur", type text}, {"penganggur", type number}, {"belum_pernah", type number}, {"porsi_belum_pernah", type number}, {"pernah", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

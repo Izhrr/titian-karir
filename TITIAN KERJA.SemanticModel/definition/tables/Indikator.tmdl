@@ -1,0 +1,38 @@
+table Indikator
+	lineageTag: 4acbce0c-4436-5446-91b9-8ae45dfe0157
+
+	column label
+		dataType: string
+		summarizeBy: none
+		sourceColumn: label
+		sortByColumn: urut
+		lineageTag: 0a44428f-6fb5-5a3d-b783-7e8b02abac24
+
+		annotation SummarizationSetBy = User
+
+	column kode
+		dataType: string
+		summarizeBy: none
+		sourceColumn: kode
+		lineageTag: ffb3a107-f59a-5cc8-b188-ed903bdce7a3
+
+		annotation SummarizationSetBy = User
+
+	column urut
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: urut
+		lineageTag: 34859b3b-2bae-5291-ad1d-fa328df53e9f
+
+		annotation SummarizationSetBy = User
+
+	partition Indikator = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCgkIUdJRUCopKAFRhkqxOgrRSk6pOYl5WYkgkYLUvPTUnNLEosQ8ENcIosA3szg7EyxQYAAijSHCHpkppQUgfmlGBogyUYqNBQA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [label = _t, kode = _t, urut = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"label", type text}, {"kode", type text}, {"urut", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

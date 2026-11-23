@@ -1,0 +1,26 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmarksMetadata/1.0.0/schema.json",
+ "items": [
+  {
+   "name": "bmp1Off"
+  },
+  {
+   "name": "bmp1TOn"
+  },
+  {
+   "name": "bmp1GuideOn"
+  },
+  {
+   "name": "bmp2Off"
+  },
+  {
+   "name": "bmp2TOn"
+  },
+  {
+   "name": "bmp2GuideOn"
+  },
+  {
+   "name": "bmp2KmOn"
+  }
+ ]
+}

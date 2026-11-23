@@ -1,0 +1,37 @@
+table Efek
+	lineageTag: 3005e084-e1ca-57a0-95ff-94ba53541122
+
+	column indikator
+		dataType: string
+		summarizeBy: none
+		sourceColumn: indikator
+		lineageTag: f36f57a2-8e39-5ba3-accb-d1c2eaf622fc
+
+		annotation SummarizationSetBy = User
+
+	column efek_per_tahun_rls
+		dataType: double
+		summarizeBy: none
+		sourceColumn: efek_per_tahun_rls
+		lineageTag: 160c39ed-6171-534f-bbd0-cc33080cc8d1
+
+		annotation SummarizationSetBy = User
+
+	column satuan
+		dataType: string
+		summarizeBy: none
+		sourceColumn: satuan
+		lineageTag: 773f8469-5c25-54fa-8d8f-7c8c1c3b2ddc
+
+		annotation SummarizationSetBy = User
+
+	partition Efek = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCkjNS0/NKU0sSsxTKEgtUshOLMgsSVTSUVAyNNAzMAQxVJVidRSilbxTczOLszPzEvNAgrqGeuZg2YL8zDyIgtDc0iKFDKBJBUCzMjJTSgvAxkBNKUnMKIUqDAkIAYkY6JkimRALAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [indikator = _t, efek_per_tahun_rls = _t, satuan = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"indikator", type text}, {"efek_per_tahun_rls", type number}, {"satuan", type text}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

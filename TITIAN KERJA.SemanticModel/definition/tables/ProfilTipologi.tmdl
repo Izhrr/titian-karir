@@ -1,0 +1,81 @@
+table ProfilTipologi
+	lineageTag: 62bca9e0-c5c8-5a1a-8c3a-472f37b4cb36
+
+	measure 'Nilai Profil' = SUM ( ProfilTipologi[nilai] )
+		formatString: #,0.0#
+		lineageTag: a8effd47-fb64-5144-a468-7b58ea36d4bc
+
+	measure 'Warna Profil' = SELECTEDVALUE ( ProfilTipologi[warna] )
+		lineageTag: 75401362-f39c-5828-9be0-863e95fe14a4
+
+	measure 'Warna Teks Profil' = SELECTEDVALUE ( ProfilTipologi[warna_teks] )
+		lineageTag: a6e55f14-7009-5f88-aa6a-4621f1881078
+
+	column tipologi
+		dataType: string
+		summarizeBy: none
+		sourceColumn: tipologi
+		sortByColumn: urut_tipo
+		lineageTag: aada6101-9a34-51bd-834a-30b51018db5b
+
+		annotation SummarizationSetBy = User
+
+	column indikator
+		dataType: string
+		summarizeBy: none
+		sourceColumn: indikator
+		sortByColumn: urut_ind
+		lineageTag: b2ec4325-20e7-515a-afff-6714021cda04
+
+		annotation SummarizationSetBy = User
+
+	column urut_ind
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: urut_ind
+		lineageTag: 5b6ea179-5a56-56b7-90aa-194ff1682e30
+
+		annotation SummarizationSetBy = User
+
+	column urut_tipo
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: urut_tipo
+		lineageTag: 0f57e8bf-1ae8-5d0a-a0ce-b7d6c7a0943d
+
+		annotation SummarizationSetBy = User
+
+	column nilai
+		dataType: double
+		summarizeBy: none
+		sourceColumn: nilai
+		lineageTag: 158c87f5-09e3-55ee-b630-16f3c76a5adc
+
+		annotation SummarizationSetBy = User
+
+	column warna
+		dataType: string
+		summarizeBy: none
+		sourceColumn: warna
+		lineageTag: 3fd85da3-827b-5911-a12b-fe9028c9c278
+
+		annotation SummarizationSetBy = User
+
+	column warna_teks
+		dataType: string
+		summarizeBy: none
+		sourceColumn: warna_teks
+		lineageTag: 6713e9fc-ae0c-59e2-908e-f9c30b697626
+
+		annotation SummarizationSetBy = User
+
+	partition ProfilTipologi = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("lZbfi+IwEID/laIvd7AXkv5K+2iSCXfs7iGrb7IPAYWter2ltv//1UxqtzUH0UCqQj4mX2am2e0WwlyqS7Q+NK2pK1MvnqLFar2JWP6DFdcf9DrF14nnhF2fSy0ggcR+pZpBki/en6Ld4qU7dxdTR5vuXLXR86E5Gj/NTjwjHGkrBQruaH1Ep7+t6XnbQ7Ov9tXJD7NxlJTYf5YFW61AINd+ELY51G1jol/1vru0TeUn2c3xksS4XPVD34Xl0fX2srktR1HDzkqVqSzU01cMGiLoWGcCRKigrxS7nDF3auFqvjLsVDi7wAG0CHGyXW+jzevzTYmdcpLbtUpArstQL3MUnlVGUCxA0Y+7XfnlzFFW0ECSuSp0fheVx88cw3BziFEFZJ7N/cfRn25vbpHE7rxQtpRKaf6IpQkM6zYm5aBJF/oBTRNW4pS7tAad6SxU1ASEKRW7ElMJMF2EqPoNsL0+01FTMUTzUDOagFBRMoDYqh+BiiYc3BollrcslVCahtTZBMImhy+4BJ2GqBFd033YPB7TmrlT17mkkoa6mZKwud7kFIoqGtiDpiAsstjVfngXmlKsnjRzvUymintq1aPntbqcKvstH3NnOKo+dzgEl9gMRd2BOUGp4IIHCpqRXBtygkDEoEIEzSiuU9OhC6VhXUgczqY+mujbsf1u3zqjJhLngyYGLDiNfECURZjLSy6VVKHZ5ONhyZHy0VebF4alR5JsIEgtQ9T9NI357KP9qPbdp7U/XgGysT31L6hQd34i3gZS1xr6TOtHoDw/0NrjBUkftOenMXc5RBqUms7uCO//AA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [tipologi = _t, indikator = _t, urut_ind = _t, urut_tipo = _t, nilai = _t, warna = _t, warna_teks = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"tipologi", type text}, {"indikator", type text}, {"urut_ind", Int64.Type}, {"urut_tipo", Int64.Type}, {"nilai", type number}, {"warna", type text}, {"warna_teks", type text}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

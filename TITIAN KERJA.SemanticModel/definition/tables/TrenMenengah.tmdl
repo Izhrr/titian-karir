@@ -1,0 +1,41 @@
+table TrenMenengah
+	lineageTag: a9fe2063-5be5-562f-a5ff-ee42c2ee775c
+
+	measure 'TPT Menengah' = AVERAGE ( TrenMenengah[tpt_menengah] )
+		formatString: 0.0
+		lineageTag: 75e34604-b78a-5864-ba1a-e086879202a9
+
+	column kab_code
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: kab_code
+		lineageTag: 6a7a74df-2ebe-5fc4-97ca-c103446db0e9
+
+		annotation SummarizationSetBy = User
+
+	column tahun
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: tahun
+		lineageTag: 85f0ef12-a403-57f4-9a73-9f3910627d73
+
+		annotation SummarizationSetBy = User
+
+	column tpt_menengah
+		dataType: double
+		summarizeBy: none
+		sourceColumn: tpt_menengah
+		lineageTag: 90e23ee4-1260-52a5-895e-a86f00178d47
+
+		annotation SummarizationSetBy = User
+
+	partition TrenMenengah = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("bZZJjuQ4DEWvUsh1QeA8nKWQ979G0xGyZYm9CS+e/IPm9PXv3w8z4M/fPz8ExNcTbWD+/P79syH5IByMDekH8eAMQwRUg4ig5xxt6jgQG/qox7Bs5CtOg8ApQoKDzIOfc7yJw3BqaIpHNqIzohRNDlNwz4jnmBxpMWxoant/6dYWDzEkU7++yp5zegQOjXyUfPRXVk4sCQJBzBjXOXtLx1Bp5CNtQ6IR/ZJUcwOtcqphLgF/S/vo4KOcg6mRqQzgUrKiyJqyChlv5SuARj7SOpIa+UjLCHeWS5YkZZ3KPWbURr41G6/vzLcyDwiqf4u0qwNzJRThrS3DrRGZCtTIjFrIwhMYk6sPV3S4TSW/okPc43ZvRL+5gsSodueansyXAO1hr2oh7cm2Tqa0h1bXJVTg5vg0EvJex5BG5Punq2GR9xYJczKqlFdiQNbHydEi3Mjs65e07NJowqqOkF5Ds6LWo6+zkSnt/Z1ZR4sU0EhPq75eZbQ9avRGZq7X6kLbc61sqJqVFTFdCwq3adSxdi763n2vKvgetUJNOYXWU3KlLY6Z4UZmPriTu/fcq5BO7o6vTOfe1WGNzJhfiTqm0V2VKdFrhxDpk2qCPerlVXRM46oiwR51QJok1UReTvaEQLhLWyf3eopGdO7hSBACkWo95HWM9gbRbETOXBHt0pBa48IBXltkhcZ7f7xCO2ZRtBGdlb+shUUD059Sk+wOE53ckxiNzJCjKldjkm51k4AlcPpiNjIt5n/e0fkOoZTLJNQf0NoSZEfrYSOzhmt66fBFq2192W0FnayrHtsk4ttK6HTGBm47DwNELX+gmkd8ZpniuD9lRzIlABu67yHqed1DINNr/y2JbR4JXquC8lDnRnTejOqSoFatXQ/k5RmORwNKI7eFRSNzQVFdnMrRwz55f07RrqzYyBwa6u/cXqBWexWqxmWOy3f9mJp1SXLepTkbmRsqErnSDOHCtbGX9jE4y9xcDjPo79xhE7C6Qt0HX17geviuN3IrWyP3xg6rSwJ4/Sasle+Hg1knc428PtSOBXVdgCMV66pQe/H39z8=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [kab_code = _t, tahun = _t, tpt_menengah = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"kab_code", Int64.Type}, {"tahun", Int64.Type}, {"tpt_menengah", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,21 @@
+table ProvSorot
+	lineageTag: fee73262-e80e-5357-9f7c-610f0f111f0f
+
+	column provinsi
+		dataType: string
+		summarizeBy: none
+		sourceColumn: provinsi
+		lineageTag: 3c6cb7ad-5ab6-5f6c-883f-a45c7d34d1f7
+
+		annotation SummarizationSetBy = User
+
+	partition ProvSorot = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("bZDNasMwEIRfRfjcl0gIlPy0hDo9FJPDpAhFWJKNoyXk7bNEsrJKe9LuJ2l2Z7quWfzqc3N8U12zhLNzFaIOudbB9OQodau1+hnMDT2miIy2a7WR4H2YhhDhhtRu4E92Lq9QS0yIoj/wAJwlsJ6m1G95Jc/LIMhvgrbagc8/XIpK/K/0d2TtTPVIDvSYx755W+1spGBer78sciQ7+LE8+ICjnmQt1T/pkvwaRtJRfSG23GMkiFJ+EkCtcKue7bWhwFvN0SRapZWQDOrpqWWXV32xclxhlUqhUqiCptgvWETSkkfUdRqFvUzKNP8+3gE=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [provinsi = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"provinsi", type text}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

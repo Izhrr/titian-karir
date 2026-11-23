@@ -1,0 +1,54 @@
+table DimKab
+	lineageTag: dbedcf47-f5ae-562d-9449-c67ba1a4952a
+
+	column kab_code
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: kab_code
+		lineageTag: 9b8aeb55-dcf4-52a3-8f68-5a90fabd834f
+
+		annotation SummarizationSetBy = User
+
+	column kab
+		dataType: string
+		summarizeBy: none
+		sourceColumn: kab
+		lineageTag: 0e28565a-395d-5d99-9a0f-71dd485943cc
+
+		annotation SummarizationSetBy = User
+
+	column tipologi
+		dataType: string
+		summarizeBy: none
+		sourceColumn: tipologi
+		sortByColumn: urut_tipo
+		lineageTag: c546e999-6eca-57ce-bf60-59ccb7c4557e
+
+		annotation SummarizationSetBy = User
+
+	column program_singkat
+		dataType: string
+		summarizeBy: none
+		sourceColumn: program_singkat
+		lineageTag: 56ea868a-b5c9-5fcd-b28f-2ae8b1eaeff9
+
+		annotation SummarizationSetBy = User
+
+	column urut_tipo
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: urut_tipo
+		lineageTag: b8f39db9-e841-5a8a-9bff-5fd64db87f04
+
+		annotation SummarizationSetBy = User
+
+	partition DimKab = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("rZbBbtswDIZfRci5h9hJ6u7aDRg2r0AwF9ih6IGuBVWxLBm0hCJvP4pK3Ow66RaJ8idKP38xLy+b3W5bbe7E5qs28AZz/PkrmLCAFV0w2otW4gni9FFaOc3gKTLGOTFL9DBxbLt5vRMMq+PwEew5TLBk03a8NGAPRlulIBu4v6R3ArRSAeYTD3HYyj5M0mbD7i/n/XAoTy7luuhFHONiq4F36J5aAQp1rxdLsYGQHxqBdn0HMciFmfXKbOLwj7NucX0h5EMcPoGSBqwqg/zCGHd2hqTm76X1COKHHcLikad+y9nokbaiK5w0RYmpb+LVlVZtWRQDPmmSxWJ7dGF074BJEzrn6Hz84lnioAc9svBwBhvlBdQShbnUQQ8YYni3AuurIEqnvbJvr2KftFTOVpH1ALMPzT7pkCS2ZTJkm3xHKkEFhZBslkfjkonzeU26oqkvVdQV++QIvpDK7JE2kF65+tZskJ9yvryAWSw2yDc5wZiNqhNh4krOprErnolGrSMU0rTep/feDmCyEzyklHypgqtT/5AjGGdL+axuEnSC62uf0+LqhySKSteXhUo9A2Uvs/9pNFzELb3q4rav5b30Tb1Cu4BAyz0UoO4+qSSJ16oEdP8JvbFfJvSwQv+tyRzTNPcrdK2i/+O9/gU=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [kab_code = _t, kab = _t, tipologi = _t, program_singkat = _t, urut_tipo = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"kab_code", Int64.Type}, {"kab", type text}, {"tipologi", type text}, {"program_singkat", type text}, {"urut_tipo", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

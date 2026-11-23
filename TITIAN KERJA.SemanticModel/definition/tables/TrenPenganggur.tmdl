@@ -1,0 +1,88 @@
+table TrenPenganggur
+	lineageTag: a96ed3f0-79ee-5b11-8d80-d9c06930522c
+
+	measure Cmp = SELECTEDVALUE ( Pembanding[jenjang], "SMA umum" )
+		lineageTag: 13323fcf-acc1-5335-a185-91659206d690
+
+	measure 'SMK Aktual' = CALCULATE ( SUM ( TrenPenganggur[juta] ), TrenPenganggur[jenjang] = "SMK", TrenPenganggur[jenis] = "Aktual" )
+		formatString: 0.00
+		lineageTag: b1f8e4f1-e943-5508-9ceb-881b0f4229b2
+
+	measure 'SMK Proyeksi' = CALCULATE ( SUM ( TrenPenganggur[juta] ), TrenPenganggur[jenjang] = "SMK", TrenPenganggur[jenis] = "Proyeksi" )
+		formatString: 0.00
+		lineageTag: 0dc7043d-cc1d-54ce-bf24-077cf67dab99
+
+	measure Pembanding = VAR c = IF ( [Cmp] = "SD ke bawah", "SD", [Cmp] ) RETURN CALCULATE ( SUM ( TrenPenganggur[juta] ), TrenPenganggur[jenjang] = c )
+		formatString: 0.00
+		lineageTag: 420fb0ac-810a-5bc2-80f9-24c9737ba6f8
+
+	measure 'Insight Tren' =
+			VAR y0 = CALCULATE ( MIN ( TrenPenganggur[tahun] ), ALLSELECTED ( TrenPenganggur ) )
+			VAR y1 = MIN ( CALCULATE ( MAX ( TrenPenganggur[tahun] ), ALLSELECTED ( TrenPenganggur ) ), 2025 )
+			VAR c = IF ( [Cmp] = "SD ke bawah", "SD", [Cmp] )
+			VAR a0 = CALCULATE ( SUM ( TrenPenganggur[juta] ), ALL ( TrenPenganggur ), TrenPenganggur[tahun] = y0, TrenPenganggur[jenjang] = "SMK" )
+			VAR a1 = CALCULATE ( SUM ( TrenPenganggur[juta] ), ALL ( TrenPenganggur ), TrenPenganggur[tahun] = y1, TrenPenganggur[jenjang] = "SMK" )
+			VAR b0 = CALCULATE ( SUM ( TrenPenganggur[juta] ), ALL ( TrenPenganggur ), TrenPenganggur[tahun] = y0, TrenPenganggur[jenjang] = c )
+			VAR b1 = CALCULATE ( SUM ( TrenPenganggur[juta] ), ALL ( TrenPenganggur ), TrenPenganggur[tahun] = y1, TrenPenganggur[jenjang] = c )
+			RETURN "Insight: " & y0 & "-" & y1 & " penganggur SMK " & IF ( a1 >= a0, "naik ", "turun " ) & FORMAT ( ABS ( a1 / a0 - 1 ), "0.0%", "id-ID" )
+			    & ", " & [Cmp] & " " & IF ( b1 >= b0, "naik ", "turun " ) & FORMAT ( ABS ( b1 / b0 - 1 ), "0.0%", "id-ID" ) & "."
+		lineageTag: ca925986-920f-5687-af2e-da2a36d33ab9
+
+	column tahun
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: tahun
+		lineageTag: d72279e0-dbe3-537b-b0df-04a801fd79c0
+
+		annotation SummarizationSetBy = User
+
+	column jenjang
+		dataType: string
+		summarizeBy: none
+		sourceColumn: jenjang
+		lineageTag: abf781e0-68c4-5b12-8c27-5326a7758fb9
+
+		annotation SummarizationSetBy = User
+
+	column jenis
+		dataType: string
+		summarizeBy: none
+		sourceColumn: jenis
+		lineageTag: 71c1494c-4674-53a1-a6c7-8994d0d5a300
+
+		annotation SummarizationSetBy = User
+
+	column juta
+		dataType: double
+		summarizeBy: none
+		sourceColumn: juta
+		lineageTag: 19a7f343-324f-5db2-87f8-552ad6be6970
+
+		annotation SummarizationSetBy = User
+
+	column bawah
+		dataType: double
+		summarizeBy: none
+		sourceColumn: bawah
+		lineageTag: 840cb9ec-2b85-5a83-a852-efdec94f1633
+
+		annotation SummarizationSetBy = User
+
+	column atas
+		dataType: double
+		summarizeBy: none
+		sourceColumn: atas
+		lineageTag: e41c86eb-7900-53cf-bf60-77ebb02e76dd
+
+		annotation SummarizationSetBy = User
+
+	partition TrenPenganggur = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("hZhNTxcxEIe/CuGspPPSTns04WZMSIwnwoEDByKoETHx29v9bxfY7fyGi/5D+vRt2mdnen19zinV8w9n51+/fF7++/T9z/Ptw/KLLjQ16r9+PD88rP/efDg7AQ0Cxh5ACQDUsg8QAgqpCzAAUjG3vYD2nKs/IwWACGcXyADIpflTKgjg5I9gACgMNgkF2jL7i0aBNmnFA9gPNF8IFx8gABCdQjQDKNClkLtLjCJtNbmnm1GkqyZ3lxhFurFUF3gb6avfP//dfX+6f0HymF7SNrZC+y5tqGG0qA5U10h3tJb2glaA8kVKp2u4oFZ1/RsLv5ANk1po7A6pDdJMN3Rzy6ez58fnx2OQNYlGggGUcWgZnyL1ZbapxqfEikS+8ai+F8VqZB2fapwtUg+gCtfIP/66AFPCkXIqkYcARalGMgKU5hoZyV9V8ofi8GCUwhqpCR7CFvkJUf7XhSWiMmmOTAVC3PzLxfkdqkTOeqX2ImChoZBqa9s+79q/dAdxYf70gTjx69HtkVkO5MFekNeX4QdMevQXZk23izvEWbj/2jns24/7v3e/n+7/3D7t9yxd5FYFaywAbb07wGQRSCmQWTRVFcY+C0BFF1LeA0WDhCoCWyYstgAs2T/Cq92izSkgfbX3RqQaOC6KoybFmgvBolh1AdgqMbZdAFathoUXbY5JkJhFa/Q3lfXdmXIgvmhvkip23wF8q5A+Jq3mWE5fzqM7q3v7xT2I0Oih1DZ6aMZ7AcZdaJPRRR027Ie+7DUY91ByGT20kYcm6RnQzoSX978efj7eHndPChu2IIBUibABISRB1QggtlKx+RCElQcIqsBaGkFNghoSzS37Bc+qOQQRKD4tgtTPdSg6DsxgTS2eHrYaOncpCzYaHKhgmaEo5RaIDEEGlhSeB/Mrfo7OA6lfqvDxPOyv/Fpn9x8jMn1vkh3qTQin1gaU0pqALYc5215aGB/51sdl9FS3G6SHzA3zJrbxnDfeXivXrfy8muoLCwvPqb0ZqGISAAp6qCIX6PWp1BZVmvOUSMMic55S9R9ttvryan6pKmFpOQFi0qK6cgK4afi0NQOm4dPWBJDGT1szIH4SyDDSDB6eCAEozUCRzqiuRZFmLS0qGCcAPPSyH+glMeGoSLyar2ora0yX3OTkqWWaYtPDlodS2pISSbw9HNOxMnTImpuO1H6YYjkQeXrY8tBUhxfzSO2WXXqtZ4dZLqdrHGjlcgqsRPXf3F4T+BCT356VIqfM/ecg4Zmbi1oklHk6DJKP7LdPKUhwnOaSg9zm2P6U7pfAJU77Gqlkat+T6eg5at59SpFI5u0HWSOD6HZ3Ro9P83rNDxcrWG8WCywyt19HRha5nC+ljdik5V12u5RvXmrYEDneBBaSuW6lcP/47CXikWmr5/pAQwlN2Q4OccjcpbNlm6LbGep37+bmPw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [tahun = _t, jenjang = _t, jenis = _t, juta = _t, bawah = _t, atas = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"tahun", Int64.Type}, {"jenjang", type text}, {"jenis", type text}, {"juta", type number}, {"bawah", type number}, {"atas", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

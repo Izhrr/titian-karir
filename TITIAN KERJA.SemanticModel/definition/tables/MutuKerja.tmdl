@@ -1,0 +1,45 @@
+table MutuKerja
+	lineageTag: e3e6108b-8711-5180-91ca-070d5dddf0d6
+
+	column ukuran
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ukuran
+		lineageTag: a07630a2-d13f-5266-bb28-157f0f352ce9
+
+		annotation SummarizationSetBy = User
+
+	column SMK
+		dataType: double
+		summarizeBy: none
+		sourceColumn: SMK
+		lineageTag: 831310fd-7259-5362-bfd9-a0316d73801c
+
+		annotation SummarizationSetBy = User
+
+	column SMA_umum
+		dataType: double
+		summarizeBy: none
+		sourceColumn: SMA_umum
+		lineageTag: 3c453724-3ccd-579e-a124-2f51ad13a0b6
+
+		annotation SummarizationSetBy = User
+
+	column arah
+		dataType: string
+		summarizeBy: none
+		sourceColumn: arah
+		lineageTag: 3115e437-7149-5e58-8a18-efad790bd180
+
+		annotation SummarizationSetBy = User
+
+	partition MutuKerja = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("ZctBCoMwEEbhqwwDBQsyVKI1Z7C7QlfBxS+k1RhTSfX+JZGuunqb9xnDjxUjDbtHQKDCbXRfz1wSK6naoxed+rEbIrgvyXCHhWYbHWjeI8KLilM2V9FVqhZVp3o7TCM5pOeQt6ym8HzHBf7nVCM6g1pJ2/zL/gs=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [ukuran = _t, SMK = _t, SMA_umum = _t, arah = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"ukuran", type text}, {"SMK", type number}, {"SMA_umum", type number}, {"arah", type text}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

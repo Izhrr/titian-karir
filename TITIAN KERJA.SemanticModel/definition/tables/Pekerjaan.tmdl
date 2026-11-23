@@ -1,0 +1,60 @@
+table Pekerjaan
+	lineageTag: 890ea3af-db8e-518f-972a-cac05516b434
+
+	measure 'Porsi SMK' = CALCULATE ( SUM ( Pekerjaan[porsi] ), Pekerjaan[jenjang] = "SMK" )
+		formatString: 0.0
+		lineageTag: 16a651a1-4d18-523d-8bf8-73954080649d
+
+	measure 'Porsi Pembanding' = VAR c = [Cmp] RETURN CALCULATE ( SUM ( Pekerjaan[porsi] ), Pekerjaan[jenjang] = c )
+		formatString: 0.0
+		lineageTag: c3a2a978-c6c2-5b88-a907-5f7e928e7d4c
+
+	measure 'Insight Pekerjaan' =
+			VAR a = CALCULATE ( SUM ( Pekerjaan[porsi] ), Pekerjaan[jenjang] = "SMK", Pekerjaan[pekerjaan] = "Operator, kasar" )
+			VAR c = [Cmp]
+			VAR b = CALCULATE ( SUM ( Pekerjaan[porsi] ), Pekerjaan[jenjang] = c, Pekerjaan[pekerjaan] = "Operator, kasar" )
+			RETURN "Insight: " & FORMAT ( a, "0.0", "id-ID" ) & "% lulusan SMK jadi operator atau pekerja kasar (" & c & " " & FORMAT ( b, "0.0", "id-ID" ) & "%)."
+		lineageTag: a36116eb-6a10-5f0c-bd4a-0d4230597fd5
+
+	column jenjang
+		dataType: string
+		summarizeBy: none
+		sourceColumn: jenjang
+		lineageTag: 2a0fd70a-2cbc-57b5-a386-ceeb464e6d5e
+
+		annotation SummarizationSetBy = User
+
+	column pekerjaan
+		dataType: string
+		summarizeBy: none
+		sourceColumn: pekerjaan
+		lineageTag: 80045a0b-8d19-5c3d-a17c-614e92a15cda
+
+		annotation SummarizationSetBy = User
+
+	column pekerja
+		dataType: double
+		summarizeBy: none
+		sourceColumn: pekerja
+		lineageTag: 2a063aae-ec1e-5cea-82f3-e5053c90da83
+
+		annotation SummarizationSetBy = User
+
+	column porsi
+		dataType: double
+		summarizeBy: none
+		sourceColumn: porsi
+		lineageTag: 10853392-97ea-571c-bc57-725327a9d838
+
+		annotation SummarizationSetBy = User
+
+	partition Pekerjaan = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("dVXLihsxEPwV4/Mi1A89+hjYUzYhhiSnZQ8KTNjJ2mPjR0L+PvKOJKQZ5eKxoLrVqurqfn7ePo6n/fEQtg+b7e58/DlcxuMU9vejF0ItSt//IymzfXnYNPin4TQcxsNpnMJ0PzsL1id8/Czh38I1bG6X8Pp+Ms6TT9nBKMQVfjdMv25hn3KjGEjJQRTICv4xXN6/iJ7Ezsj4gU7e8zVM45yXgZFdyqvVOu2X03AO1+P5YfMWLzi/ZwVtMcfEK9wq6FMYp+nvXI7TaGEGOwWpnO/T+Hs4X8ZruHSYt45IKJHDqAx3o1b8s3aZI1bWd4NaFVCQPOS3eMWuX18tBRKhkywdK9evLuthDFO+oXTRKn8liWhy3swBRrk+Yx1ZgA0x4RwYW6T//koa8NbodBEU/NfHzduw+RH+hNe1NNNtv59/e9ilIGBJU2pFrQi6F7SCEBnUmEOs6ddUyxF9YYxgkZBcN6bYw2nrvMv0Zt+tbqgEQcNMThJTLKWLF0E9TYisCOWpYJTvhzaGQZRCmqGE//xhczvcDh23gLUEUl7EZh2xFIa10S5PE0WdOxY2ufeWsdnFuldUM628tnFKlFcbtw4ogoCOLsQ8sLz0cldqGARwOlvWlfFTB3SUEHFsdXpzdInthNXeQBC0mG0rpaqnjgLCANnirLxvsCtTGKe5dHjphxnc0g5xNmnmMjxtW0TNOBv0WLYPKW6xmWwgABYqZC8S1k0PjrRPgxtAYZuww7CPK8pnIeMLpc1ekWsARefuULZk3nW4jbssroPcqgYb7JpbxNwa0Tu+AS8HjZfc0dECbQk1s/Zu/8JsFKMtoTDrATyXvSuLR9XUxj3lxSUo+sqxu/81L/u4RBILcaJyW0Pdt2LiFsgMuJj55R8=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [jenjang = _t, pekerjaan = _t, pekerja = _t, porsi = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"jenjang", type text}, {"pekerjaan", type text}, {"pekerja", type number}, {"porsi", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "TITIAN KERJA"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9619e4cc-0157-5d05-bad2-6bfba8b474ad"
+  }
+}

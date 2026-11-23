@@ -1,0 +1,73 @@
+table TPTJenjang
+	lineageTag: 1eac8489-bd57-5790-9ff1-4881ddad1b64
+
+	measure TPT = SUM ( TPTJenjang[tpt_2025] )
+		formatString: 0.00
+		lineageTag: 8769a525-565f-5993-8c84-dddb681cde34
+
+	measure 'Warna Jenjang' = VAR j = SELECTEDVALUE ( TPTJenjang[jenjang] ) RETURN SWITCH ( TRUE (), j = "SMK", "#1A64DB", j = [Cmp], "#6F7F99", "#CBD4E1" )
+		lineageTag: 0348d20e-c03e-50bd-ba68-b64a81667ef2
+
+	measure 'Insight TPT' =
+			VAR s = CALCULATE ( SUM ( TPTJenjang[tpt_2025] ), TPTJenjang[jenjang] = "SMK" )
+			VAR c = [Cmp]
+			VAR b = CALCULATE ( SUM ( TPTJenjang[tpt_2025] ), TPTJenjang[jenjang] = c )
+			RETURN "Insight: TPT SMK " & FORMAT ( s / b, "0.00", "id-ID" ) & "× " & c & "."
+		lineageTag: e5a5f313-5509-581a-8e7a-37c2fbfa3926
+
+	measure 'Potensi Nasional' =
+			VAR ak = CALCULATE ( SUM ( TPTJenjang[ak_2025] ), TPTJenjang[jenjang] = "SMK" )
+			VAR s = CALCULATE ( SUM ( TPTJenjang[tpt_2025] ), TPTJenjang[jenjang] = "SMK" )
+			VAR c = [Cmp]
+			VAR b = CALCULATE ( SUM ( TPTJenjang[tpt_2025] ), TPTJenjang[jenjang] = c )
+			RETURN FORMAT ( MAX ( 0, ak * ( s - b ) / 100 ), "#,0", "id-ID" )
+		lineageTag: b4e37cec-5806-5ea1-af73-dee8a865c429
+
+	measure 'Potensi Nasional Sub' =
+			VAR c = [Cmp]
+			VAR b = CALCULATE ( SUM ( TPTJenjang[tpt_2025] ), TPTJenjang[jenjang] = c )
+			RETURN "bila TPT SMK turun ke " & c & " (" & FORMAT ( b, "0.00", "id-ID" ) & "%)"
+		lineageTag: 8c7bb5c5-04a6-5eb2-9e65-9b30656cd6d9
+
+	column jenjang
+		dataType: string
+		summarizeBy: none
+		sourceColumn: jenjang
+		lineageTag: 4229d00e-2982-5137-b3b4-b6f92545111b
+
+		annotation SummarizationSetBy = User
+
+	column tpt_2025
+		dataType: double
+		summarizeBy: none
+		sourceColumn: tpt_2025
+		lineageTag: fc1ec08a-c7b0-5f2c-8a53-4a4a6a1e172b
+
+		annotation SummarizationSetBy = User
+
+	column penganggur_2025
+		dataType: double
+		summarizeBy: none
+		sourceColumn: penganggur_2025
+		lineageTag: fdbaffa9-9b3a-5f73-90ef-d19e45747e68
+
+		annotation SummarizationSetBy = User
+
+	column ak_2025
+		dataType: double
+		summarizeBy: none
+		sourceColumn: ak_2025
+		lineageTag: d89bb60c-3347-51d3-9dba-7c610603f12c
+
+		annotation SummarizationSetBy = User
+
+	partition TPTJenjang = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("RY7BCsIwEER/JfRcQrK72WSPQm8iCOKp9BChYNGqWKu/b5tYe0myM282U9dF1T2u9z4WpSpIo51vS4xA2sxvRCEJYRqaUtXFYbed1aAZEymA3nFGAUAsiVvZjRr7sZ891iFkRtAxLrsRmT2sgX2SdUJFrIRfC2BrKNBKVurSqlP8xHOydW4DxhKZHHEAyNOxRI637t0+h+4Vh2RrlPSLoX/EsvciqV3TfAE=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [jenjang = _t, tpt_2025 = _t, penganggur_2025 = _t, ak_2025 = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"jenjang", type text}, {"tpt_2025", type number}, {"penganggur_2025", type number}, {"ak_2025", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

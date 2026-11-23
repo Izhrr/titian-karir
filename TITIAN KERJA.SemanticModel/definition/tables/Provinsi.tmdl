@@ -1,0 +1,48 @@
+table Provinsi
+	lineageTag: 6f92188c-652f-5d9b-bb19-aa6647ede828
+
+	measure 'Porsi Guru SMK' = SUM ( Provinsi[porsi_smk] )
+		formatString: 0.0
+		lineageTag: 8919204c-229d-5887-bf9c-8593cf927b73
+
+	measure 'TPT Provinsi' = SUM ( Provinsi[tpt] )
+		formatString: 0.00
+		lineageTag: d7e4a4bb-576a-550c-bb78-1cb0fc66435e
+
+	measure 'Warna Prov' = IF ( NOT ISFILTERED ( ProvSorot[provinsi] ) || SELECTEDVALUE ( Provinsi[provinsi] ) IN VALUES ( ProvSorot[provinsi] ), "#1A64DB", "#C5CEDB" )
+		lineageTag: 91ddc1ac-207b-52b1-9b6f-4551e3949330
+
+	column provinsi
+		dataType: string
+		summarizeBy: none
+		sourceColumn: provinsi
+		lineageTag: 4d3b72f5-c4af-5f48-84c4-66b7d0a754d1
+
+		annotation SummarizationSetBy = User
+
+	column porsi_smk
+		dataType: double
+		summarizeBy: none
+		sourceColumn: porsi_smk
+		lineageTag: e12124c4-7147-58d3-9f10-246884cadf5e
+
+		annotation SummarizationSetBy = User
+
+	column tpt
+		dataType: double
+		summarizeBy: none
+		sourceColumn: tpt
+		lineageTag: 8bd79116-b8ce-5449-b5c5-e9f3f3a6aee1
+
+		annotation SummarizationSetBy = User
+
+	partition Provinsi = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("bVRda9wwEPwrxs9hOX3Ljw0HJbm0hKZ9KEcetsU45mzf4ViE/PvqpJUt+/pmvKPZmZ2Vjsfyy9/6rbwrSiHAquuHAlO+3hXH8sX1ONUjFr8mHPFakgqsjRjON6B7j5kCUQWCQIqYfrToqMRZIAJG5x+x/9OGX5yOSeB6w/1SdzjhECg06Cp8gFQRdl8Pzcl1qYPVVI7VJ+wvbmgCczorYcdi9VBfXIcOB6/fs3gbdddOCa9AEl5u4bMlC0pcPzQIcrs/PBSPeMJxikOrQGkarEqmP7KBKQ2VjBTaZICf3heGbLR3I6MQTRT7h+L3uflc2igLhkfnQuQsbe9GAnAbATRfb3mqw1QVB2tIAkvFLuZiKRcGkjL77t6jugbz4KUESmYn/geclQg/CUYhEeXBd+u9nBBEWiQFmjbCmhvYMh0fAdObWBdctjs+T2YIKG8JkzzvuOK05eIGNl8GYaAiF6ZKC9vhR/3eZjdGgxGRa4tZDMgdMfHrIqxR+er7JGgdk64VWZOE+bGaKEzReL+ex7NX351pDJo2JYU98yxLycBo0kTNvmHnTmHpeQWalp6vitl0/J2hq55egWe8uPyd2AFLdqobRLHHT6QLz6vYS+kMRk5FcGrm9yRS5KH7NjImwFZCsvnreWB2BXmuGzf4xyAycUkwBta7fv0H", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [provinsi = _t, porsi_smk = _t, tpt = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"provinsi", type text}, {"porsi_smk", type number}, {"tpt", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

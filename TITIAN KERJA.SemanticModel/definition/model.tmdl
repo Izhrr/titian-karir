@@ -1,0 +1,28 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["TrenPenganggur", "TPTJenjang", "KabRLS", "PintuKerja", "Pekerjaan", "MutuKerja", "Provinsi", "Pembanding", "Indikator", "ProvSorot", "Efek", "DimKab", "KabGender", "KabProfil", "TrenMenengah", "ProfilTipologi"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+ref table TrenPenganggur
+ref table TPTJenjang
+ref table KabRLS
+ref table PintuKerja
+ref table Pekerjaan
+ref table MutuKerja
+ref table Provinsi
+ref table Pembanding
+ref table Indikator
+ref table ProvSorot
+ref table Efek
+ref table DimKab
+ref table KabGender
+ref table KabProfil
+ref table TrenMenengah
+ref table ProfilTipologi

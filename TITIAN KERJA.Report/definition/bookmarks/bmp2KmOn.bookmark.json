@@ -1,0 +1,277 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+ "displayName": "p2 km",
+ "name": "bmp2KmOn",
+ "options": {
+  "targetVisualNames": [
+   "p2_t_img",
+   "p2_t_x",
+   "p2_t_bgx",
+   "p2_guide_img",
+   "p2_guide_x",
+   "p2_guide_bgx",
+   "p2_km_img",
+   "p2_km_x",
+   "p2_km_bgx"
+  ],
+  "suppressData": true,
+  "applyOnlyToTargetVisuals": true,
+  "suppressActiveSection": true
+ },
+ "explorationState": {
+  "version": "1.0",
+  "activeSection": "p2",
+  "sections": {
+   "p2": {
+    "visualContainers": {
+     "p2Bg": {
+      "singleVisual": {
+       "visualType": "image",
+       "objects": {}
+      }
+     },
+     "p2Nav": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p2Reset": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p2Tip0": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p2Tip1": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p2Tip2": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p2Tip3": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p2Tip4": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p2_t_img": {
+      "singleVisual": {
+       "visualType": "image",
+       "objects": {},
+       "display": {
+        "mode": "hidden"
+       }
+      }
+     },
+     "p2_t_x": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {},
+       "display": {
+        "mode": "hidden"
+       }
+      }
+     },
+     "p2_t_bgx": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {},
+       "display": {
+        "mode": "hidden"
+       }
+      }
+     },
+     "p2_t_open": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p2_guide_img": {
+      "singleVisual": {
+       "visualType": "image",
+       "objects": {},
+       "display": {
+        "mode": "hidden"
+       }
+      }
+     },
+     "p2_guide_x": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {},
+       "display": {
+        "mode": "hidden"
+       }
+      }
+     },
+     "p2_guide_bgx": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {},
+       "display": {
+        "mode": "hidden"
+       }
+      }
+     },
+     "p2_guide_open": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p2_km_img": {
+      "singleVisual": {
+       "visualType": "image",
+       "objects": {}
+      }
+     },
+     "p2_km_x": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p2_km_bgx": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p2_km_open": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p2Tipo": {
+      "singleVisual": {
+       "visualType": "slicer",
+       "objects": {}
+      }
+     },
+     "p2Kab": {
+      "singleVisual": {
+       "visualType": "slicer",
+       "objects": {}
+      }
+     },
+     "p2Jk": {
+      "singleVisual": {
+       "visualType": "advancedSlicerVisual",
+       "objects": {}
+      }
+     },
+     "p2Jen": {
+      "singleVisual": {
+       "visualType": "advancedSlicerVisual",
+       "objects": {}
+      }
+     },
+     "p2KpiV1": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p2KpiS1": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p2KpiV2": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p2KpiS2": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p2KpiV4": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p2KpiV5": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p2KpiS5": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p2TipoChart": {
+      "singleVisual": {
+       "visualType": "scatterChart",
+       "objects": {}
+      }
+     },
+     "p2Rank": {
+      "singleVisual": {
+       "visualType": "clusteredBarChart",
+       "objects": {}
+      }
+     },
+     "p2Profil": {
+      "singleVisual": {
+       "visualType": "pivotTable",
+       "objects": {}
+      }
+     },
+     "p2Tren": {
+      "singleVisual": {
+       "visualType": "lineChart",
+       "objects": {}
+      }
+     },
+     "p2Aksi": {
+      "singleVisual": {
+       "visualType": "tableEx",
+       "objects": {}
+      }
+     },
+     "p2InsB": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p2InsE": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     }
+    }
+   }
+  }
+ }
+}

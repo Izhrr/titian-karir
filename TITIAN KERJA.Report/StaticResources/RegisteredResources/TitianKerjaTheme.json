@@ -1,0 +1,88 @@
+{
+  "name": "Titian Kerja",
+  "dataColors": [
+    "#1A64DB",
+    "#6F7F99",
+    "#D9822B",
+    "#0CA678",
+    "#E03131",
+    "#A8C6F6",
+    "#CBD4E1",
+    "#0F1E36"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#0F1E36",
+  "tableAccent": "#1A64DB",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#0F1E36"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 11,
+      "color": "#56667E"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Bold",
+      "fontSize": 24,
+      "color": "#0F1E36"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": false
+          }
+        ],
+        "border": [
+          {
+            "show": false
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ],
+        "title": [
+          {
+            "show": false
+          }
+        ],
+        "visualHeader": [
+          {
+            "show": false
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#EEF3FA"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#DCE4F0"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    }
+  }
+}

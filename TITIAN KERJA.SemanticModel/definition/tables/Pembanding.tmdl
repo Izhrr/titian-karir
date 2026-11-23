@@ -1,0 +1,30 @@
+table Pembanding
+	lineageTag: fc3eae06-27b8-585d-904d-7f3ad4ed5076
+
+	column jenjang
+		dataType: string
+		summarizeBy: none
+		sourceColumn: jenjang
+		sortByColumn: urut
+		lineageTag: f4bee731-384f-5ac1-9678-5ee1464e313b
+
+		annotation SummarizationSetBy = User
+
+	column urut
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: urut
+		lineageTag: 354cea49-6fb2-5d77-ab78-1f8d15017dd6
+
+		annotation SummarizationSetBy = User
+
+	partition Pembanding = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCvZ1VCjNLc1V0lFQMlSK1VGIVgrNyyxLLSrOLEksBokaQURdMgty8nMTQSLGEJFg3wAQzwTKc1HITlVISixPzACJmirFxgIA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [jenjang = _t, urut = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"jenjang", type text}, {"urut", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

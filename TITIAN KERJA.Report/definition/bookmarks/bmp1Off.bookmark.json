@@ -1,0 +1,262 @@
+{
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+ "displayName": "p1 tutup",
+ "name": "bmp1Off",
+ "options": {
+  "targetVisualNames": [
+   "p1_t_img",
+   "p1_t_x",
+   "p1_t_bgx",
+   "p1_guide_img",
+   "p1_guide_x",
+   "p1_guide_bgx"
+  ],
+  "suppressData": true,
+  "applyOnlyToTargetVisuals": true,
+  "suppressActiveSection": true
+ },
+ "explorationState": {
+  "version": "1.0",
+  "activeSection": "p1",
+  "sections": {
+   "p1": {
+    "visualContainers": {
+     "p1Bg": {
+      "singleVisual": {
+       "visualType": "image",
+       "objects": {}
+      }
+     },
+     "p1Nav": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p1Reset": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p1Tip0": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p1Tip1": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p1Tip2": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p1Tip3": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p1Tip4": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p1Tip5": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p1_t_img": {
+      "singleVisual": {
+       "visualType": "image",
+       "objects": {},
+       "display": {
+        "mode": "hidden"
+       }
+      }
+     },
+     "p1_t_x": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {},
+       "display": {
+        "mode": "hidden"
+       }
+      }
+     },
+     "p1_t_bgx": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {},
+       "display": {
+        "mode": "hidden"
+       }
+      }
+     },
+     "p1_t_open": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p1_guide_img": {
+      "singleVisual": {
+       "visualType": "image",
+       "objects": {},
+       "display": {
+        "mode": "hidden"
+       }
+      }
+     },
+     "p1_guide_x": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {},
+       "display": {
+        "mode": "hidden"
+       }
+      }
+     },
+     "p1_guide_bgx": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {},
+       "display": {
+        "mode": "hidden"
+       }
+      }
+     },
+     "p1_guide_open": {
+      "singleVisual": {
+       "visualType": "actionButton",
+       "objects": {}
+      }
+     },
+     "p1Tahun": {
+      "singleVisual": {
+       "visualType": "slicer",
+       "objects": {}
+      }
+     },
+     "p1Proj": {
+      "singleVisual": {
+       "visualType": "advancedSlicerVisual",
+       "objects": {}
+      }
+     },
+     "p1Cmp": {
+      "singleVisual": {
+       "visualType": "slicer",
+       "objects": {}
+      }
+     },
+     "p1Prov": {
+      "singleVisual": {
+       "visualType": "slicer",
+       "objects": {}
+      }
+     },
+     "p1Ind": {
+      "singleVisual": {
+       "visualType": "advancedSlicerVisual",
+       "objects": {}
+      }
+     },
+     "p1KpiV5": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p1KpiS5": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p1Sekolah": {
+      "singleVisual": {
+       "visualType": "scatterChart",
+       "objects": {}
+      }
+     },
+     "p1Efek": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p1TPT": {
+      "singleVisual": {
+       "visualType": "clusteredBarChart",
+       "objects": {}
+      }
+     },
+     "p1Tren": {
+      "singleVisual": {
+       "visualType": "lineStackedColumnComboChart",
+       "objects": {}
+      }
+     },
+     "p1Pintu": {
+      "singleVisual": {
+       "visualType": "hundredPercentStackedBarChart",
+       "objects": {}
+      }
+     },
+     "p1Kerja": {
+      "singleVisual": {
+       "visualType": "clusteredBarChart",
+       "objects": {}
+      }
+     },
+     "p1Mutu": {
+      "singleVisual": {
+       "visualType": "tableEx",
+       "objects": {}
+      }
+     },
+     "p1ProvChart": {
+      "singleVisual": {
+       "visualType": "scatterChart",
+       "objects": {}
+      }
+     },
+     "p1InsA": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p1InsC": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p1InsB": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     },
+     "p1InsE": {
+      "singleVisual": {
+       "visualType": "card",
+       "objects": {}
+      }
+     }
+    }
+   }
+  }
+ }
+}

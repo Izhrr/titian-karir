@@ -1,0 +1,143 @@
+table KabProfil
+	lineageTag: c2756744-7506-51b9-a2fc-802a5e2f2093
+
+	measure PC1 = SUM ( KabProfil[pc1] )
+		formatString: 0.00
+		lineageTag: 969a5fd8-9265-5396-bd48-0705d391c0d5
+
+	measure PC2 = SUM ( KabProfil[pc2] )
+		formatString: 0.00
+		lineageTag: 08b930f9-5382-55e8-b35d-5f241d1d48c0
+
+	measure 'TPT SMK Kab' = SUM ( KabProfil[tpt_smk] )
+		formatString: 0.0
+		lineageTag: bf52837b-5550-518e-a42d-1dabf323e06d
+
+	measure 'Penganggur SMK Kab' = SUM ( KabProfil[penganggur_smk] )
+		formatString: #,0
+		lineageTag: 537b03ad-f436-5b3e-a132-db83fc0a5d69
+
+	measure 'Potensi Terserap' = SUM ( KabProfil[potensi_terserap] )
+		formatString: #,0
+		lineageTag: 0a8fb825-ed5f-5c54-8f38-f1b22cef8012
+
+	measure 'Potensi Jateng' = FORMAT ( SUM ( KabProfil[potensi_terserap] ), "#,0", "id-ID" )
+		lineageTag: 479b0126-f5fc-5fc5-8568-084e1c6833a6
+
+	measure 'Selisih Gender' =
+			VAR t = ADDCOLUMNS ( VALUES ( DimKab[kab] ), "d", ABS ( CALCULATE ( SUM ( KabProfil[tpt_smk_L] ) - SUM ( KabProfil[tpt_smk_P] ) ) ) )
+			RETURN FORMAT ( MAXX ( TOPN ( 1, t, [d], DESC ), [d] ), "0.0", "id-ID" ) & " poin"
+		lineageTag: 2cf5e546-7eb9-557b-9218-d7c5a28b9567
+
+	measure 'Selisih Gender Sub' =
+			VAR t = ADDCOLUMNS ( VALUES ( DimKab[kab] ), "d", ABS ( CALCULATE ( SUM ( KabProfil[tpt_smk_L] ) - SUM ( KabProfil[tpt_smk_P] ) ) ),
+			    "l", CALCULATE ( SUM ( KabProfil[tpt_smk_L] ) ), "p", CALCULATE ( SUM ( KabProfil[tpt_smk_P] ) ) )
+			VAR r = TOPN ( 1, t, [d], DESC )
+			RETURN MAXX ( r, DimKab[kab] ) & ": L " & FORMAT ( MAXX ( r, [l] ), "0.0", "id-ID" ) & "% vs P " & FORMAT ( MAXX ( r, [p] ), "0.0", "id-ID" ) & "%"
+		lineageTag: 68ffc8b8-a550-571c-a2e1-3058e94c8acb
+
+	measure 'Insight Aksi' =
+			VAR t = ADDCOLUMNS ( VALUES ( DimKab[kab] ), "p", CALCULATE ( SUM ( KabProfil[potensi_terserap] ) ) )
+			VAR tot = SUMX ( t, [p] )
+			VAR top3 = SUMX ( TOPN ( 3, t, [p], DESC ), [p] )
+			RETURN "Insight: 3 kab teratas = " & FORMAT ( DIVIDE ( top3, tot ), "0%", "id-ID" ) & " dari potensi " & FORMAT ( tot, "#,0", "id-ID" ) & " lulusan."
+		lineageTag: bdfc4524-9c15-58e4-acad-c2612897d41b
+
+	column kab_code
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: kab_code
+		lineageTag: b579f852-9ea7-5e33-8f76-bbeb00217fa5
+
+		annotation SummarizationSetBy = User
+
+	column pc1
+		dataType: double
+		summarizeBy: none
+		sourceColumn: pc1
+		lineageTag: 733463bb-b80f-59ea-aebd-b26487661755
+
+		annotation SummarizationSetBy = User
+
+	column pc2
+		dataType: double
+		summarizeBy: none
+		sourceColumn: pc2
+		lineageTag: f05a7df7-9aea-5f6b-b105-a9d312e82208
+
+		annotation SummarizationSetBy = User
+
+	column tpt_smk
+		dataType: double
+		summarizeBy: none
+		sourceColumn: tpt_smk
+		lineageTag: b08e3cfb-5ffc-547a-aff2-3d96cb25f9b9
+
+		annotation SummarizationSetBy = User
+
+	column NEET
+		dataType: double
+		summarizeBy: none
+		sourceColumn: NEET
+		lineageTag: 9e3e6818-ab0b-5187-b9b7-bb379292ebe0
+
+		annotation SummarizationSetBy = User
+
+	column penganggur_smk
+		dataType: double
+		summarizeBy: none
+		sourceColumn: penganggur_smk
+		lineageTag: ed92aeb5-8868-5dd4-aa5c-9bd39c392016
+
+		annotation SummarizationSetBy = User
+
+	column potensi_terserap
+		dataType: double
+		summarizeBy: none
+		sourceColumn: potensi_terserap
+		lineageTag: b2977c62-5fe7-5562-b221-583989e2cf97
+
+		annotation SummarizationSetBy = User
+
+	column tpt_smk_L
+		dataType: double
+		summarizeBy: none
+		sourceColumn: tpt_smk_L
+		lineageTag: 9d65a8a5-d0e4-5230-8d20-72e45095b09c
+
+		annotation SummarizationSetBy = User
+
+	column tpt_smk_P
+		dataType: double
+		summarizeBy: none
+		sourceColumn: tpt_smk_P
+		lineageTag: 02447593-4938-5b40-b000-9d149064667b
+
+		annotation SummarizationSetBy = User
+
+	column pemicu
+		dataType: string
+		summarizeBy: none
+		sourceColumn: pemicu
+		lineageTag: 58cf70d3-a954-5e08-a6d9-58bbcd600a09
+
+		annotation SummarizationSetBy = User
+
+	column stabilitas
+		dataType: double
+		summarizeBy: none
+		sourceColumn: stabilitas
+		lineageTag: f11f8b43-ad96-50f4-8141-863a72dcac46
+
+		annotation SummarizationSetBy = User
+
+	partition KabProfil = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("jVfNbpw3DHwVw+dYkChREh8gOfTQU2+BDws0KAo3P2jh9w8/zVDf7hZ2e4mVXYnDn+GQ+/nzY625PH54eHySNGY9TpK0H39LSXWsD2bKug7aSk4ZX8rQVHI7/jPSxMWapK23n76/vP7z8OPL31++/ni9fDs+ysmkPz5/eFiYsjD9s9qIuT4pLdGJmvCF9VEJOfICWK4USbUsxyUnVXsbtMwNWhloaet+iYdF05zLlqQ84MechJ2mPVWEVUbqdd0s/m1ep18u3/54ubw67tfX3y8Pv378+FuEeyKvWJ48ptzx5Sy0IpE5WwmYOidwWzNPcO+8N7VF3NX+A7duXGXEIpW4fUSe11+LyMcwAhc1j3PSQ01NhD50XXdpaZzhdVaz4IKfxNbzmbQSryxfbLjtDDIdUU1eq6Y4DDwExlDdGIMplI02O8hXEEFLup7WVjpTmIfzajlgqePgdev6bv6GUzJAI5zGCpY0gNaSRSJxqXc1oLJDPOmI2Dn+RtrIwgy/3fhs7IZi7MCBxjMdd8Y7Wq54XttpvZ/WC4qZWi0Mgg3T/O36ykOFjZJFb8zXRV4/eGPoVT3mSS3Yqqng4Nbhak9lkKhjJXzmmm+M9yTw3Y3jDY2frgvzka3tzBjetki7wXofQtqaCwGKM5Khb2o0UCBsASqgpafCgrFDgAAlMjK3mzbmPDs7Oz3v3cBXxhJdvflaWlAHzPbTgO+SEFWZntzlpTa7S38TdJ9n/IY7m5noJk9Mm5Gsmekb1c0jWAetvd6Y16SNV+uN9/P0vofRYTyJKosGjmqSdUmlyX19Ie9eo/Z+q10jDuLUHt3Q8LpFg/t3UKKhtwE5o5Evbwsk4X8hRnOPHLXyVFGFhBUCT4ZL4iaBZ42q7H0qpBmGKCbQX5eXP5+OfwJSNqRRGZD2Y/4JK1ECGX01533TNNx0LEzIYNzuGuF9qyGQldMZCnBo/nJXNXpmqIegW6kHq2bXpMgnQAiJICt+ynDKNW5yPkoDKWKMFav+ITwwT6dQ2OAKVSvvvuSscQGMIKBRPiFmTApq1i7JEBcd4Loj6FAf2fUmirERKumFKJ+OdSeeGINAnartWVydeh3ZGXoz2f6lLHDEg9JIV+9UxhG0weDKNcz76JBOsuuI7WvaVe+PciJE7+uGKBR0aM2xxkAuNXpTRneOwWVH3VuAtfpuv/SyJUc2rWxsReMIhoq6PYpmy1Q0XxP9Wsdu48pEjZ1Vr8t/YsSU71xFJUrCNcW4OYlIi1W01XGMA6XqGd/4dgGhfWdTKht4i8Gg8tYZaw+X2xi9h7ZHcH12EtMXJa5bXrkOXXh7xchbEuCss3BijzhG/mARkV0RNrBnJ8csqms7BNeqawLXSG8re1OITDbq4CYgAD0mO+nNNQxLxcx2NzkqOHlsv1cN7AvjtkxF7J19YMZNQrmIQelb1XmncAWt6S1Wr4a2nezAQuGrSuPOoQMJoNIZ9djuxLP6TxvQx6l4vQ/YXmdg6NjqGsvPVpForQYL2dd+dm3Px3TvcN646Dqdr6XtGkI50tF8h3hypymxKHIvKHI/r9E3vgPazTZ2ZqbzB02hfkr8MhvRDMaxbSxps6O7Md78HesuN9rvu93z808=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [kab_code = _t, pc1 = _t, pc2 = _t, tpt_smk = _t, NEET = _t, penganggur_smk = _t, potensi_terserap = _t, tpt_smk_L = _t, tpt_smk_P = _t, pemicu = _t, stabilitas = _t]),
+				    Typed = Table.TransformColumnTypes(Source, {{"kab_code", Int64.Type}, {"pc1", type number}, {"pc2", type number}, {"tpt_smk", type number}, {"NEET", type number}, {"penganggur_smk", type number}, {"potensi_terserap", type number}, {"tpt_smk_L", type number}, {"tpt_smk_P", type number}, {"pemicu", type text}, {"stabilitas", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
