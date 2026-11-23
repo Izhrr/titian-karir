@@ -12,7 +12,7 @@ table TPTJenjang
 			VAR s = CALCULATE ( SUM ( TPTJenjang[tpt_2025] ), TPTJenjang[jenjang] = "SMK" )
 			VAR c = [Cmp]
 			VAR b = CALCULATE ( SUM ( TPTJenjang[tpt_2025] ), TPTJenjang[jenjang] = c )
-			RETURN "Insight: TPT SMK " & FORMAT ( s / b, "0.00", "id-ID" ) & "× " & c & "."
+			RETURN "TPT SMK " & FORMAT ( s / b, "0.00", "id-ID" ) & "× " & c & "."
 		lineageTag: e5a5f313-5509-581a-8e7a-37c2fbfa3926
 
 	measure 'Potensi Nasional' =

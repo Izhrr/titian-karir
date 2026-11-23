@@ -40,7 +40,7 @@ table KabProfil
 			VAR t = ADDCOLUMNS ( VALUES ( DimKab[kab] ), "p", CALCULATE ( SUM ( KabProfil[potensi_terserap] ) ) )
 			VAR tot = SUMX ( t, [p] )
 			VAR top3 = SUMX ( TOPN ( 3, t, [p], DESC ), [p] )
-			RETURN "Insight: 3 kab teratas = " & FORMAT ( DIVIDE ( top3, tot ), "0%", "id-ID" ) & " dari potensi " & FORMAT ( tot, "#,0", "id-ID" ) & " lulusan."
+			RETURN "3 kab teratas = " & FORMAT ( DIVIDE ( top3, tot ), "0%", "id-ID" ) & " dari potensi " & FORMAT ( tot, "#,0", "id-ID" ) & " lulusan."
 		lineageTag: bdfc4524-9c15-58e4-acad-c2612897d41b
 
 	column kab_code
