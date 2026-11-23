@@ -5,7 +5,7 @@
     "x": 1318,
     "y": 301,
     "z": 702,
-    "height": 196,
+    "height": 220,
     "width": 558,
     "tabOrder": 702
   },
@@ -98,7 +98,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10.0D"
+                  "Value": "8.5D"
                 }
               }
             },
@@ -136,7 +136,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "11.0D"
+                  "Value": "10.0D"
                 }
               }
             },
@@ -167,7 +167,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "11.0D"
+                  "Value": "10.0D"
                 }
               }
             },
@@ -329,7 +329,7 @@
             "rowPadding": {
               "expr": {
                 "Literal": {
-                  "Value": "8L"
+                  "Value": "5L"
                 }
               }
             },

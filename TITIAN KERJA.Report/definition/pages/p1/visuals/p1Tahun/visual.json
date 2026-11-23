@@ -3,9 +3,9 @@
   "name": "p1Tahun",
   "position": {
     "x": 28,
-    "y": 250,
+    "y": 252,
     "z": 500,
-    "height": 40,
+    "height": 34,
     "width": 232,
     "tabOrder": 500
   },
@@ -41,7 +41,7 @@
             "mode": {
               "expr": {
                 "Literal": {
-                  "Value": "'Between'"
+                  "Value": "'Dropdown'"
                 }
               }
             }
@@ -127,48 +127,27 @@
           }
         }
       ],
-      "slider": [
+      "selection": [
         {
           "properties": {
-            "show": {
+            "strictSingleSelect": {
               "expr": {
                 "Literal": {
                   "Value": "false"
                 }
               }
-            }
-          }
-        }
-      ],
-      "numericInputStyle": [
-        {
-          "properties": {
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#0F1E36'"
-                    }
-                  }
-                }
-              }
             },
-            "background": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#FFFFFF'"
-                    }
-                  }
-                }
-              }
-            },
-            "textSize": {
+            "singleSelect": {
               "expr": {
                 "Literal": {
-                  "Value": "11.0D"
+                  "Value": "false"
+                }
+              }
+            },
+            "selectAllCheckboxEnabled": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }
