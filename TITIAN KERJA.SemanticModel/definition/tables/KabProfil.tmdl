@@ -1,13 +1,13 @@
 table KabProfil
 	lineageTag: c2756744-7506-51b9-a2fc-802a5e2f2093
 
-	measure PC1 = SUM ( KabProfil[pc1] )
+	measure 'Sumbu PC1' = SUM ( KabProfil[pc1] )
 		formatString: 0.00
-		lineageTag: 969a5fd8-9265-5396-bd48-0705d391c0d5
+		lineageTag: b0c4ca3d-3108-5803-96f5-8676a47c6ca2
 
-	measure PC2 = SUM ( KabProfil[pc2] )
+	measure 'Sumbu PC2' = SUM ( KabProfil[pc2] )
 		formatString: 0.00
-		lineageTag: 08b930f9-5382-55e8-b35d-5f241d1d48c0
+		lineageTag: fb597935-fef3-5a4d-ba51-8fc1fc58a4d4
 
 	measure 'TPT SMK Kab' = SUM ( KabProfil[tpt_smk] )
 		formatString: 0.0

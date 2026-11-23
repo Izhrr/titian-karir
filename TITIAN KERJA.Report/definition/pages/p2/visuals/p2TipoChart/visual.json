@@ -42,11 +42,11 @@
                       "Entity": "KabProfil"
                     }
                   },
-                  "Property": "PC1"
+                  "Property": "Sumbu PC1"
                 }
               },
-              "queryRef": "KabProfil.PC1",
-              "nativeQueryRef": "PC1"
+              "queryRef": "KabProfil.Sumbu PC1",
+              "nativeQueryRef": "Sumbu PC1"
             }
           ]
         },
@@ -60,11 +60,11 @@
                       "Entity": "KabProfil"
                     }
                   },
-                  "Property": "PC2"
+                  "Property": "Sumbu PC2"
                 }
               },
-              "queryRef": "KabProfil.PC2",
-              "nativeQueryRef": "PC2"
+              "queryRef": "KabProfil.Sumbu PC2",
+              "nativeQueryRef": "Sumbu PC2"
             }
           ]
         },

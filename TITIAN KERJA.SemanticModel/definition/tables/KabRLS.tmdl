@@ -1,9 +1,9 @@
 table KabRLS
 	lineageTag: c5663d73-8f78-59a1-aaba-567e558fb49c
 
-	measure RLS = SUM ( KabRLS[rls] )
+	measure 'RLS Kab' = SUM ( KabRLS[rls] )
 		formatString: 0.0
-		lineageTag: fca96f90-f943-57c6-ba05-fe74261cd677
+		lineageTag: 25e3d2b6-69ed-5522-a3df-b8d5769ea99b
 
 	measure 'Nilai Indikator' =
 			SWITCH ( SELECTEDVALUE ( Indikator[kode], "tpt" ), "tpt", SUM ( KabRLS[tpt] ), "pengeluaran", SUM ( KabRLS[pengeluaran] ) / 1000,

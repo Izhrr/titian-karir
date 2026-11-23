@@ -42,11 +42,11 @@
                       "Entity": "KabRLS"
                     }
                   },
-                  "Property": "RLS"
+                  "Property": "RLS Kab"
                 }
               },
-              "queryRef": "KabRLS.RLS",
-              "nativeQueryRef": "RLS"
+              "queryRef": "KabRLS.RLS Kab",
+              "nativeQueryRef": "RLS Kab"
             }
           ]
         },
