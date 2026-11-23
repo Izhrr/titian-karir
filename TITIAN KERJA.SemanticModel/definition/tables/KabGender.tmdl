@@ -27,10 +27,11 @@ table KabGender
 
 	measure 'Insight Ranking' =
 			VAR t = ADDCOLUMNS ( VALUES ( DimKab[kab] ), "v", [TPT Terpilih] )
-			VAR top = TOPN ( 1, t, [v], DESC )
+			VAR mx = MAXX ( t, [v] )
+			VAR nm = MAXX ( FILTER ( t, [v] = mx ), DimKab[kab] )
 			VAR p = CALCULATE ( [TPT Terpilih], ALL ( DimKab ) )
 			VAR n = COUNTROWS ( FILTER ( t, [v] > p ) )
-			RETURN MAXX ( top, DimKab[kab] ) & " tertinggi, " & FORMAT ( DIVIDE ( MAXX ( top, [v] ), p ), "0.0", "id-ID" ) & "× rata-rata Jawa Tengah; " & n & " dari " & COUNTROWS ( t ) & " kab/kota di atas rata-rata."
+			RETURN nm & " tertinggi, " & FORMAT ( DIVIDE ( mx, p ), "0.0", "id-ID" ) & "x rata-rata Jawa Tengah; " & FORMAT ( n, "0" ) & " dari " & FORMAT ( COUNTROWS ( t ), "0" ) & " kab/kota di atas rata-rata."
 		lineageTag: 0f5465e3-01ef-5720-ada6-edc294eaa5d4
 
 	column kab_code
