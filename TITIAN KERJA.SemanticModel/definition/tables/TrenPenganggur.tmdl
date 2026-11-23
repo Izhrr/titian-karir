@@ -24,7 +24,7 @@ table TrenPenganggur
 			VAR a1 = CALCULATE ( SUM ( TrenPenganggur[juta] ), ALL ( TrenPenganggur ), TrenPenganggur[tahun] = y1, TrenPenganggur[jenjang] = "SMK" )
 			VAR b0 = CALCULATE ( SUM ( TrenPenganggur[juta] ), ALL ( TrenPenganggur ), TrenPenganggur[tahun] = y0, TrenPenganggur[jenjang] = c )
 			VAR b1 = CALCULATE ( SUM ( TrenPenganggur[juta] ), ALL ( TrenPenganggur ), TrenPenganggur[tahun] = y1, TrenPenganggur[jenjang] = c )
-			RETURN "Insight: " & y0 & "-" & y1 & " penganggur SMK " & IF ( a1 >= a0, "naik ", "turun " ) & FORMAT ( ABS ( a1 / a0 - 1 ), "0.0%", "id-ID" )
+			RETURN y0 & "-" & y1 & " penganggur SMK " & IF ( a1 >= a0, "naik ", "turun " ) & FORMAT ( ABS ( a1 / a0 - 1 ), "0.0%", "id-ID" )
 			    & ", " & [Cmp] & " " & IF ( b1 >= b0, "naik ", "turun " ) & FORMAT ( ABS ( b1 / b0 - 1 ), "0.0%", "id-ID" ) & "."
 		lineageTag: ca925986-920f-5687-af2e-da2a36d33ab9
 

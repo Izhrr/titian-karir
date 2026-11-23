@@ -13,7 +13,7 @@ table Pekerjaan
 			VAR a = CALCULATE ( SUM ( Pekerjaan[porsi] ), Pekerjaan[jenjang] = "SMK", Pekerjaan[pekerjaan] = "Operator, kasar" )
 			VAR c = [Cmp]
 			VAR b = CALCULATE ( SUM ( Pekerjaan[porsi] ), Pekerjaan[jenjang] = c, Pekerjaan[pekerjaan] = "Operator, kasar" )
-			RETURN "Insight: " & FORMAT ( a, "0.0", "id-ID" ) & "% lulusan SMK jadi operator atau pekerja kasar (" & c & " " & FORMAT ( b, "0.0", "id-ID" ) & "%)."
+			RETURN FORMAT ( a, "0.0", "id-ID" ) & "% lulusan SMK jadi operator atau pekerja kasar (" & c & " " & FORMAT ( b, "0.0", "id-ID" ) & "%)."
 		lineageTag: a36116eb-6a10-5f0c-bd4a-0d4230597fd5
 
 	column jenjang

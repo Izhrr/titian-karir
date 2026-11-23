@@ -31,9 +31,9 @@ table KabRLS
 			VAR w = ( SWITCH ( k, "tpt", MAXX ( lo, KabRLS[tpt] ), "pengeluaran", MAXX ( lo, KabRLS[pengeluaran] ) / 1000, "p0", MAXX ( lo, KabRLS[p0] ), MAXX ( lo, KabRLS[uhh] ) ) )
 			VAR u = SWITCH ( k, "pengeluaran", " jt", "uhh", " thn", "%" )
 			RETURN IF ( ISFILTERED ( ProvSorot[provinsi] ) && COUNTROWS ( VALUES ( ProvSorot[provinsi] ) ) <= 3,
-			    "Insight: " & MAXX ( hi, KabRLS[kab] ) & " (sekolah " & FORMAT ( MAXX ( hi, KabRLS[rls] ), "0.0", "id-ID" ) & " thn) " & FORMAT ( v, "0.00", "id-ID" ) & u
+			    MAXX ( hi, KabRLS[kab] ) & " (sekolah " & FORMAT ( MAXX ( hi, KabRLS[rls] ), "0.0", "id-ID" ) & " thn) " & FORMAT ( v, "0.00", "id-ID" ) & u
 			        & ", " & MAXX ( lo, KabRLS[kab] ) & " (" & FORMAT ( MAXX ( lo, KabRLS[rls] ), "0.0", "id-ID" ) & " thn) " & FORMAT ( w, "0.00", "id-ID" ) & u & ".",
-			    IF ( k = "tpt", "Insight: arahnya berbalik, daerah lebih terdidik justru punya TPT lebih tinggi.", "Insight: daerah yang sekolahnya lebih lama lebih sejahtera." ) )
+			    IF ( k = "tpt", "Arahnya berbalik, daerah lebih terdidik justru punya TPT lebih tinggi.", "Daerah yang sekolahnya lebih lama lebih sejahtera." ) )
 		lineageTag: fed92958-1808-5e3b-b70a-b66c900735d2
 
 	column label
